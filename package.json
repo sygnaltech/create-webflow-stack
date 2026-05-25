@@ -1,0 +1,22 @@
+{
+  "name": "create-sygnal-stack",
+  "version": "0.1.0",
+  "description": "Scaffolder for Sygnal Claude Code project setups (Webflow MCP, EmDash, Chrome DevTools, etc.).",
+  "type": "module",
+  "bin": {
+    "create-sygnal-stack": "bin/index.js"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node bin/index.js"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.8.2"
+  }
+}
