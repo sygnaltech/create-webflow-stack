@@ -3,7 +3,7 @@ import { promptWebflowConfig, installWebflow } from '../mcp/webflow.js';
 import {
   promptChromeDevtoolsConfig,
   installChromeDevtools,
-} from '../mcp/chrome-devtools.js';
+} from '../plugins/chrome-devtools.js';
 
 export async function runClaudeDesignToWebflow() {
   const wf = await promptWebflowConfig();
@@ -14,9 +14,9 @@ export async function runClaudeDesignToWebflow() {
 
   p.note(
     [
-      'Commit the updated .mcp.json (project scope).',
+      'Commit the updated .mcp.json and .claude/ entries.',
       'Run `claude` in this directory and authenticate the Webflow MCP when prompted.',
-      'Chrome DevTools MCP runs via `npx chrome-devtools-mcp@latest` on first use — no auth needed.',
+      'Restart Claude Code to activate the Chrome DevTools plugin.',
     ]
       .map((line) => `• ${line}`)
       .join('\n'),

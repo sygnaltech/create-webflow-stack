@@ -2,7 +2,7 @@ import * as p from '@clack/prompts';
 import {
   promptChromeDevtoolsConfig,
   installChromeDevtools,
-} from '../mcp/chrome-devtools.js';
+} from '../plugins/chrome-devtools.js';
 
 export async function runClaudeDesignToEmdash() {
   const cd = await promptChromeDevtoolsConfig();
@@ -10,8 +10,8 @@ export async function runClaudeDesignToEmdash() {
 
   p.note(
     [
-      'Commit the updated .mcp.json (project scope).',
-      'Chrome DevTools MCP runs via `npx chrome-devtools-mcp@latest` on first use — no auth needed.',
+      'Commit the .claude/ entries created by the install.',
+      'Restart Claude Code to activate the Chrome DevTools plugin.',
     ]
       .map((line) => `• ${line}`)
       .join('\n'),
