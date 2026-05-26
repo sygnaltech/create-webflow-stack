@@ -1,11 +1,18 @@
 import * as p from '@clack/prompts';
 import { ensureClaudeInstalled } from './checks.js';
 import { assertNotCancelled } from './util/cancel.js';
+import { runWebflow } from './variants/webflow.js';
 import { runWebflowEmdash } from './variants/webflow-emdash.js';
 import { runClaudeDesignToWebflow } from './variants/claude-design-to-webflow.js';
 import { runClaudeDesignToEmdash } from './variants/claude-design-to-emdash.js';
 
 const VARIANTS = [
+  {
+    value: 'webflow',
+    label: 'Webflow',
+    hint: 'Webflow MCP only — base setup for Webflow work',
+    run: runWebflow,
+  },
   {
     value: 'webflow-emdash',
     label: 'Webflow → EmDash migration',
