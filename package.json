@@ -1,10 +1,31 @@
 {
-  "name": "create-sygnal-stack",
+  "name": "@sygnal/create-webflow-stack",
   "version": "0.1.0",
-  "description": "Scaffolder for Sygnal Claude Code project setups (Webflow MCP, EmDash, Chrome DevTools, etc.).",
+  "description": "Scaffolder for Sygnal Claude Code project setups for Webflow (Webflow MCP, Chrome DevTools, etc.).",
+  "keywords": [
+    "webflow",
+    "claude-code",
+    "claude",
+    "mcp",
+    "scaffolder",
+    "sygnal"
+  ],
+  "author": "Michael Wells <info@sygnal.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/sygnaltech/create-webflow-stack#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sygnaltech/create-webflow-stack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sygnaltech/create-webflow-stack/issues"
+  },
   "type": "module",
   "bin": {
-    "create-sygnal-stack": "bin/index.js"
+    "create-webflow-stack": "bin/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "files": [
     "bin",

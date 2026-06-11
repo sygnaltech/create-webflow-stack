@@ -1,3 +1,10 @@
 node_modules/
 *.log
 .DS_Store
+
+
+DEPLOY.md
+.havoc/
+
+.claude/
+.mcp.json
