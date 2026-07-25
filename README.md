@@ -15,7 +15,7 @@ That's it. The scaffolder will:
 1. Verify Claude Code is installed on your PATH.
 2. Prompt you to pick a variant (see below).
 3. Ask any variant-specific questions (server name, beta endpoint, etc.).
-4. Run the right `claude mcp add` / `claude plugin install` commands for you.
+4. Run the right `claude mcp add` / `claude plugin install` commands, and offer to install the matching Sygnal skills.
 5. Print a short list of next steps.
 
 After it finishes, restart Claude Code so newly installed plugins activate, then `claude` in the same directory.
@@ -30,13 +30,29 @@ After it finishes, restart Claude Code so newly installed plugins activate, then
 
 | Variant | What it installs | When to use |
 |---|---|---|
-| **Webflow** | Webflow MCP only | Base setup for Webflow work — anything that needs Claude Code to talk to Webflow but doesn't fit one of the more opinionated flows below. |
-| **Webflow → Webflow migration** | Two Webflow MCP entries with `-source` and `-dest` suffixes | Migrating content/structure between two Webflow sites. The two entries authenticate separately so each can be pointed at a different Webflow account. |
-| **Claude Design → Webflow** | Webflow MCP + Chrome DevTools plugin | Translating a Claude Design prototype into a Webflow site. |
+| **Webflow** | Webflow MCP + `webflow-mcp` skill | Base setup for Webflow work — anything that needs Claude Code to talk to Webflow but doesn't fit one of the more opinionated flows below. |
+| **Webflow → Webflow migration** | Two Webflow MCP entries (`-source`/`-dest`) + `webflow-mcp` skill | Migrating content/structure between two Webflow sites. The two entries authenticate separately so each can be pointed at a different Webflow account. |
+| **Claude Design → Webflow** | Webflow MCP + Chrome DevTools plugin + `webflow-mcp` & `claude-design-to-webflow` skills | Translating a Claude Design prototype into a Webflow site. |
 
 All variants share the same Webflow MCP prompt flow: you name the MCP server entry (defaults to `webflow-<dirname>`, or a base name for the migration variant) and choose between the public endpoint and the gated beta endpoint.
 
 > **Webflow beta endpoint:** only answer "yes" to the beta prompt if you are officially enrolled in the Webflow private beta program. Otherwise the MCP will fail to connect.
+
+## Skills
+
+Each variant offers to install the matching **Sygnal Webflow skills** — agent skills that teach Claude Code how to work with the Webflow MCP effectively:
+
+- **`webflow-mcp`** — using the Webflow MCP: the two-transport model, capability/limitation map, and the confirmed bugs + workarounds. Offered by every variant.
+- **`claude-design-to-webflow`** — the design-migration workflow (phases, human-vs-agent split, restyling playbook, component authoring). Offered by the Claude Design → Webflow variant, on top of `webflow-mcp`.
+
+Skills are installed with the [`skills`](https://skills.sh) CLI, which reads them **directly from a public GitHub repo** — [`sygnaltech/webflow-skills`](https://github.com/sygnaltech/webflow-skills) — so nothing needs to be published to npm. You can also install them by hand at any time:
+
+```bash
+npx skills add sygnaltech/webflow-skills --skill webflow-mcp
+npx skills add sygnaltech/webflow-skills --skill claude-design-to-webflow
+```
+
+Each variant also offers (opt-in, default no) to additionally install the **official** `webflow/webflow-skills` set.
 
 ## What the scaffolder touches
 
@@ -95,6 +111,7 @@ src/mcp/webflow.js            # Webflow MCP prompt + install
 src/mcp/install.js            # shared `claude mcp add` runner
 src/plugins/chrome-devtools.js
 src/plugins/install.js        # shared marketplace + plugin install runners
+src/skills/webflow.js         # skills installer (Sygnal + official Webflow sets)
 src/util/cancel.js            # @clack/prompts cancel handling
 src/checks.js                 # preflight (claude on PATH, etc.)
 ```
