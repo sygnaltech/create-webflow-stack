@@ -7,8 +7,10 @@ Built for use inside an **existing project directory** — it augments the curre
 ## Quick start
 
 ```bash
-npm create @sygnal/webflow-stack
+npm create @sygnal/webflow-stack@latest
 ```
+
+**Always include `@latest`.** It is a moving tag (not a version number), so this exact command always runs the newest published build — without it, npx can silently re-run an older cached copy. See [npx caches by version](#alternative-invocations) below.
 
 That's it. The scaffolder will:
 
@@ -67,17 +69,19 @@ Commit both `.mcp.json` and `.claude/`.
 
 ```bash
 # Standard
-npm create @sygnal/webflow-stack
+npm create @sygnal/webflow-stack@latest
 
 # Equivalent, explicit
 npx @sygnal/create-webflow-stack@latest
 
-# Persistent global install
-npm install -g @sygnal/create-webflow-stack
+# Persistent global install (upgrades on demand)
+npm install -g @sygnal/create-webflow-stack@latest
 create-webflow-stack
 ```
 
-`npm create @sygnal/webflow-stack` and `npx @sygnal/create-webflow-stack` always pull the latest published version, so you don't need to upgrade anything manually.
+The scaffolder prints its version on the first line (`create-webflow-stack vX.Y.Z`) — check it against the latest on npm if you're unsure what you're running.
+
+> **Why `@latest` matters.** `npm create` / `npx` cache packages by version, so the **bare** command `npm create @sygnal/webflow-stack` can silently re-run an older cached build even after a newer version is published. `@latest` is a moving tag that npm repoints at every publish, so it forces resolution of the newest release and never needs updating in docs. If the printed version is still stale (aggressive metadata cache), add `-- --prefer-online`, or clear the cache: delete `%LocalAppData%\npm-cache\_npx` (Windows) / `~/.npm/_npx` (macOS/Linux), then re-run.
 
 ## Local development
 
@@ -98,7 +102,7 @@ To revert to the published version:
 
 ```bash
 npm unlink -g @sygnal/create-webflow-stack
-npm install -g @sygnal/create-webflow-stack
+npm install -g @sygnal/create-webflow-stack@latest
 ```
 
 ### Project layout

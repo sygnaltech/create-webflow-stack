@@ -1,9 +1,12 @@
+import { createRequire } from 'node:module';
 import * as p from '@clack/prompts';
 import { ensureClaudeInstalled } from './checks.js';
 import { assertNotCancelled } from './util/cancel.js';
 import { runWebflow } from './variants/webflow.js';
 import { runWebflowToWebflow } from './variants/webflow-to-webflow.js';
 import { runClaudeDesignToWebflow } from './variants/claude-design-to-webflow.js';
+
+const { version } = createRequire(import.meta.url)('../package.json');
 
 const VARIANTS = [
   {
@@ -27,7 +30,7 @@ const VARIANTS = [
 ];
 
 export async function run() {
-  p.intro('create-webflow-stack');
+  p.intro(`create-webflow-stack v${version}`);
 
   ensureClaudeInstalled();
 
