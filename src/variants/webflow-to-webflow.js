@@ -2,7 +2,7 @@ import path from 'node:path';
 import * as p from '@clack/prompts';
 import { assertNotCancelled } from '../util/cancel.js';
 import { installWebflow } from '../mcp/webflow.js';
-import { offerSygnalSkills, offerWebflowSkills } from '../skills/webflow.js';
+import { installSygnalSkills, offerWebflowSkills } from '../skills/webflow.js';
 
 const NAME_PATTERN = /^[A-Za-z0-9][A-Za-z0-9_-]*$/;
 
@@ -46,7 +46,7 @@ export async function runWebflowToWebflow() {
 
   await installWebflow({ serverName: `${baseName}-source`, beta });
   await installWebflow({ serverName: `${baseName}-dest`, beta });
-  await offerSygnalSkills(['webflow-mcp']);
+  await installSygnalSkills(['webflow-mcp']);
   await offerWebflowSkills();
 
   p.note(

@@ -17,7 +17,7 @@ That's it. The scaffolder will:
 1. Verify Claude Code is installed on your PATH.
 2. Prompt you to pick a variant (see below).
 3. Ask any variant-specific questions (server name, beta endpoint, etc.).
-4. Run the right `claude mcp add` / `claude plugin install` commands, and offer to install the matching Sygnal skills.
+4. Run the right `claude mcp add` / `claude plugin install` commands, and install the matching Sygnal skills automatically.
 5. Print a short list of next steps.
 
 After it finishes, restart Claude Code so newly installed plugins activate, then `claude` in the same directory.
@@ -42,10 +42,10 @@ All variants share the same Webflow MCP prompt flow: you name the MCP server ent
 
 ## Skills
 
-Each variant offers to install the matching **Sygnal Webflow skills** — agent skills that teach Claude Code how to work with the Webflow MCP effectively:
+Every variant **automatically installs** the matching **Sygnal Webflow skills** — agent skills that teach Claude Code how to work with the Webflow MCP effectively. These are the point of the tool, so there is **no opt-out prompt** for them:
 
-- **`webflow-mcp`** — using the Webflow MCP: the two-transport model, capability/limitation map, and the confirmed bugs + workarounds. Offered by every variant.
-- **`claude-design-to-webflow`** — the design-migration workflow (phases, human-vs-agent split, restyling playbook, component authoring). Offered by the Claude Design → Webflow variant, on top of `webflow-mcp`.
+- **`webflow-mcp`** — using the Webflow MCP: the two-transport model, capability/limitation map, and the confirmed bugs + workarounds. Installed by every variant.
+- **`claude-design-to-webflow`** — the design-migration workflow (phases, human-vs-agent split, restyling playbook, component authoring). Installed by the Claude Design → Webflow variant, on top of `webflow-mcp`.
 
 Skills are installed with the [`skills`](https://skills.sh) CLI, which reads them **directly from a public GitHub repo** — [`sygnaltech/webflow-skills`](https://github.com/sygnaltech/webflow-skills) — so nothing needs to be published to npm. You can also install them by hand at any time:
 

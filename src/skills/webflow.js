@@ -24,26 +24,14 @@ function reportResult(result, retryCmd) {
 }
 
 /**
- * Offer to install one or more Sygnal Webflow skills by name from
- * SYGNAL_SKILLS_REPO. Each skill installs independently.
+ * Install one or more Sygnal Webflow skills by name from SYGNAL_SKILLS_REPO.
+ * These are the whole point of the variant, so they are installed
+ * automatically — there is intentionally NO opt-out prompt. Each skill
+ * installs independently.
  * @param {string[]} skills - skill names (e.g. ['webflow-mcp'])
  */
-export async function offerSygnalSkills(skills) {
-  const cmd = `npx skills add ${SYGNAL_SKILLS_REPO} --skill ${skills.join(' --skill ')}`;
-
-  const install = assertNotCancelled(
-    await p.confirm({
-      message: `Install Sygnal Webflow skills (${skills.join(', ')})? (runs \`${cmd}\`)`,
-      initialValue: true,
-    })
-  );
-
-  if (!install) {
-    p.log.info(`Skipped Sygnal skills. Run \`${cmd}\` later to install.`);
-    return;
-  }
-
-  p.log.step('Installing Sygnal Webflow skills…');
+export async function installSygnalSkills(skills) {
+  p.log.step(`Installing Sygnal Webflow skills (${skills.join(', ')})…`);
   for (const skill of skills) {
     const retry = `npx skills add ${SYGNAL_SKILLS_REPO} --skill ${skill}`;
     if (reportResult(runSkillsAdd(SYGNAL_SKILLS_REPO, skill), retry)) {

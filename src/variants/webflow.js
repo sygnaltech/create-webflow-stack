@@ -1,12 +1,12 @@
 import * as p from '@clack/prompts';
 import { promptWebflowConfig, installWebflow } from '../mcp/webflow.js';
-import { offerSygnalSkills, offerWebflowSkills } from '../skills/webflow.js';
+import { installSygnalSkills, offerWebflowSkills } from '../skills/webflow.js';
 
 export async function runWebflow() {
   const wf = await promptWebflowConfig();
 
   await installWebflow(wf);
-  await offerSygnalSkills(['webflow-mcp']);
+  await installSygnalSkills(['webflow-mcp']);
   await offerWebflowSkills();
 
   p.note(

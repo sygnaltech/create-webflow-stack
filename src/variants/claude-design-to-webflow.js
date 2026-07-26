@@ -4,7 +4,7 @@ import {
   promptChromeDevtoolsConfig,
   installChromeDevtools,
 } from '../plugins/chrome-devtools.js';
-import { offerSygnalSkills, offerWebflowSkills } from '../skills/webflow.js';
+import { installSygnalSkills, offerWebflowSkills } from '../skills/webflow.js';
 
 export async function runClaudeDesignToWebflow() {
   const wf = await promptWebflowConfig();
@@ -12,7 +12,7 @@ export async function runClaudeDesignToWebflow() {
 
   await installWebflow(wf);
   await installChromeDevtools(cd);
-  await offerSygnalSkills(['webflow-mcp', 'claude-design-to-webflow']);
+  await installSygnalSkills(['webflow-mcp', 'claude-design-to-webflow']);
   await offerWebflowSkills();
 
   p.note(
