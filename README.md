@@ -35,7 +35,7 @@ After it finishes, restart Claude Code so the new MCP servers are picked up, the
 | **Webflow** | Webflow MCP + `webflow-mcp` skill | Base setup for Webflow work — anything that needs Claude Code to talk to Webflow but doesn't fit one of the more opinionated flows below. |
 | **Webflow → Webflow migration** | Two Webflow MCP entries (`-source`/`-dest`) + `webflow-mcp` skill | Migrating content/structure between two Webflow sites. The two entries authenticate separately so each can be pointed at a different Webflow account. |
 | **Claude Design → Webflow** | Webflow MCP + Chrome DevTools MCP + `webflow-mcp` & `claude-design-to-webflow` skills | Translating a Claude Design prototype into a Webflow site. |
-| **Chrome DevTools MCP** | Chrome DevTools MCP only, with a Chrome profile unique to this project | Driving a real browser from Claude Code — inspecting, screenshotting, tracing performance — without the Webflow pieces. |
+| **Chrome DevTools MCP** | Chrome DevTools MCP only, with a Chrome profile in `./.chrome-profile` | Driving a real browser from Claude Code — inspecting, screenshotting, tracing performance — without the Webflow pieces. No questions asked; it just installs. |
 
 The Webflow variants share the same Webflow MCP prompt flow: you name the MCP server entry (defaults to `webflow-<dirname>`, or a base name for the migration variant) and choose between the public endpoint and the gated beta endpoint.
 
@@ -64,14 +64,11 @@ Both the **Chrome DevTools MCP** and **Claude Design → Webflow** variants regi
 }
 ```
 
-### The profile must be unique per project
+### The profile always lives in the project
 
-Chrome refuses to run two instances against one user-data directory — the second launch fails with *"The browser is already running for …"*. So every project needs its own profile, and the scaffolder asks where to put it:
+Chrome refuses to run two instances against one user-data directory — the second launch fails with *"The browser is already running for …"*. So every project needs its own profile, and the profile always goes in `./.chrome-profile`: one per project directory is unique by construction, so there is nothing to name and nothing to ask. The scaffolder creates the directory and appends `.chrome-profile/` to `.gitignore`. There are **no prompts** on this step.
 
-- **In the project — `./.chrome-profile`** (default). Unique by construction, no naming to get wrong, and it disappears when the project does. The scaffolder creates the directory and appends `.chrome-profile/` to `.gitignore`.
-- **`~/.cache/chrome-devtools-mcp/profiles/<name>`**. Survives a clean clone, so logged-in sessions persist across re-clones. You pick the name (defaults to the directory name) and it's on you to keep it unique across projects.
-
-Either way the path is written into `.mcp.json` as an **absolute** path for the machine that ran the scaffolder. If teammates share the committed `.mcp.json`, each of them should re-run the scaffolder (or hand-edit that one argument) so the path resolves locally.
+The path is written into `.mcp.json` as an **absolute** path for the machine that ran the scaffolder. If teammates share the committed `.mcp.json`, each of them should re-run the scaffolder (or hand-edit that one argument) so the path resolves locally.
 
 > `chrome-devtools-mcp` only creates the profile directory when `--userDataDir` is *omitted*, so the scaffolder creates it explicitly rather than leaving it to Chrome.
 
@@ -153,7 +150,7 @@ bin/index.js                  # entry point (shebang, calls src/cli.js)
 src/cli.js                    # variant picker
 src/variants/*.js             # one file per variant; composes the installers below
 src/mcp/webflow.js            # Webflow MCP prompt + install
-src/mcp/chrome-devtools.js    # Chrome DevTools MCP prompt + install (pinned version, profile)
+src/mcp/chrome-devtools.js    # Chrome DevTools MCP install (pinned version, in-project profile; no prompts)
 src/mcp/install.js            # shared `claude mcp add` runner
 src/plugins/install.js        # shared marketplace + plugin install runners (unused; kept for future plugin variants)
 src/skills/webflow.js         # skills installer (Sygnal + official Webflow sets)

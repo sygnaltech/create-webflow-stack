@@ -1,17 +1,13 @@
 import * as p from '@clack/prompts';
 import { promptWebflowConfig, installWebflow } from '../mcp/webflow.js';
-import {
-  promptChromeDevtoolsConfig,
-  installChromeDevtools,
-} from '../mcp/chrome-devtools.js';
+import { installChromeDevtools } from '../mcp/chrome-devtools.js';
 import { installSygnalSkills, offerWebflowSkills } from '../skills/webflow.js';
 
 export async function runClaudeDesignToWebflow() {
   const wf = await promptWebflowConfig();
-  const cd = await promptChromeDevtoolsConfig();
 
   await installWebflow(wf);
-  await installChromeDevtools(cd);
+  await installChromeDevtools();
   await installSygnalSkills(['webflow-mcp', 'claude-design-to-webflow']);
   await offerWebflowSkills();
 
