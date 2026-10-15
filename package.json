@@ -1,6 +1,6 @@
 {
   "name": "@sygnal/create-webflow-stack",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Scaffolder for Sygnal Claude Code project setups for Webflow (Webflow MCP, Chrome DevTools, etc.).",
   "keywords": [
     "webflow",

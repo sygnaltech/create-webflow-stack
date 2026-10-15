@@ -3,7 +3,7 @@ import { promptWebflowConfig, installWebflow } from '../mcp/webflow.js';
 import {
   promptChromeDevtoolsConfig,
   installChromeDevtools,
-} from '../plugins/chrome-devtools.js';
+} from '../mcp/chrome-devtools.js';
 import { installSygnalSkills, offerWebflowSkills } from '../skills/webflow.js';
 
 export async function runClaudeDesignToWebflow() {
@@ -17,9 +17,9 @@ export async function runClaudeDesignToWebflow() {
 
   p.note(
     [
-      'Commit the updated .mcp.json and .claude/ entries.',
+      'Commit the updated .mcp.json, .claude/, and .gitignore entries.',
       'Run `claude` in this directory and authenticate the Webflow MCP when prompted.',
-      'Restart Claude Code to activate the Chrome DevTools plugin.',
+      'Restart Claude Code so it picks up the Chrome DevTools MCP server.',
     ]
       .map((line) => `• ${line}`)
       .join('\n'),

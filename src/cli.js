@@ -5,6 +5,7 @@ import { assertNotCancelled } from './util/cancel.js';
 import { runWebflow } from './variants/webflow.js';
 import { runWebflowToWebflow } from './variants/webflow-to-webflow.js';
 import { runClaudeDesignToWebflow } from './variants/claude-design-to-webflow.js';
+import { runChromeDevtools } from './variants/chrome-devtools.js';
 
 const { version } = createRequire(import.meta.url)('../package.json');
 
@@ -26,6 +27,12 @@ const VARIANTS = [
     label: 'Claude Design → Webflow',
     hint: 'Webflow MCP + Chrome DevTools MCP for converting a Claude Design prototype into a Webflow site',
     run: runClaudeDesignToWebflow,
+  },
+  {
+    value: 'chrome-devtools',
+    label: 'Chrome DevTools MCP',
+    hint: 'Chrome DevTools MCP on its own, with a Chrome profile unique to this project',
+    run: runChromeDevtools,
   },
 ];
 
